@@ -522,6 +522,7 @@ async fn test_admin_controlled_only_admin_can_pause() -> anyhow::Result<()> {
     use aurora_eth_connector::admin_controlled::PAUSE_DEPOSIT;
 
     let contract = TestContract::new().await?;
+    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
     let user_acc = contract.create_sub_account("eth_recipient").await?;
     let res = user_acc
         .call(contract.contract.id(), "set_paused_flags")
@@ -622,6 +623,7 @@ async fn test_deposit_pausability() -> anyhow::Result<()> {
     use aurora_eth_connector::admin_controlled::{PAUSE_DEPOSIT, UNPAUSE_ALL};
 
     let contract = TestContract::new().await?;
+    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
     let user_acc = contract.create_sub_account("eth_recipient").await?;
 
     // Set access right
@@ -686,6 +688,7 @@ async fn test_withdraw_from_near_pausability() -> anyhow::Result<()> {
     use aurora_eth_connector::admin_controlled::{PAUSE_WITHDRAW, UNPAUSE_ALL};
 
     let contract = TestContract::new().await?;
+    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
     let user_acc = contract.create_sub_account("eth_recipient").await?;
 
     contract.call_deposit_eth_to_near().await?;
@@ -1141,6 +1144,7 @@ async fn test_access_rights() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_storage_deposit() -> anyhow::Result<()> {
     let contract = TestContract::new().await?;
+    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
     let user_acc = contract.create_sub_account("eth_recipient").await?;
 
     let bounds = contract
