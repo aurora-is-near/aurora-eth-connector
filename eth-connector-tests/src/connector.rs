@@ -768,20 +768,21 @@ async fn test_withdraw_from_near_pausability() -> anyhow::Result<()> {
 }
 
 #[tokio::test]
-async fn test_get_accounts_counter() -> anyhow::Result<()> {
-    let contract = TestContract::new().await?;
-    contract.call_deposit_eth_to_near().await?;
+async fn test_get_accounts_counter() {
+    let contract = TestContract::new().await.unwrap();
+    contract.call_deposit_eth_to_near().await.unwrap();
 
     let res = contract
         .contract
         .call("get_accounts_counter")
         .view()
-        .await?
+        .await
+        .unwrap()
         .borsh::<U64>()
         .unwrap();
     assert_eq!(res.0, 2);
 
-    Ok(())
+    // Ok(())
 }
 
 #[tokio::test]
